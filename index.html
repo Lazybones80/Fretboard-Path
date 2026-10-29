@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#10151f">
+<title>Fretboard Path — Daily Guitar System</title>
+<style>
+:root{
+  --bg:#0c1017;--panel:#131a25;--panel2:#182232;--panel3:#202c3e;--text:#eef4ff;--muted:#9eacc1;
+  --line:#2b3a50;--accent:#6ee7c8;--accent2:#7ba8ff;--gold:#f6c76b;--red:#ff8891;
+  --shadow:0 18px 50px rgba(0,0,0,.28);--radius:18px;
+}
+:root.light{
+  --bg:#edf2f7;--panel:#fff;--panel2:#f5f8fc;--panel3:#e7eef7;--text:#142033;--muted:#587087;
+  --line:#d5dfeb;--accent:#087f68;--accent2:#2862c7;--gold:#a36b00;--red:#b9323c;--shadow:0 18px 50px rgba(42,67,95,.12);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+body{line-height:1.45}
+button,select,input{font:inherit}
+button{cursor:pointer}
+.app{min-height:100vh}
+.topbar{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:16px clamp(16px,4vw,42px);background:color-mix(in srgb,var(--bg) 90%,transparent);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:grid;place-items:center;color:#071018;font-weight:900;font-size:22px;box-shadow:0 8px 22px rgba(110,231,200,.18)}
+.eyebrow{font-size:10px;letter-spacing:.18em;color:var(--accent);font-weight:800}.brand h1{font-size:20px;margin:1px 0 0;letter-spacing:-.02em}
+.header-actions{display:flex;align-items:center;gap:8px}.pill,.icon-btn,.primary,.secondary,.ghost,.nav-btn,.chip,.select-wrap select{border:1px solid var(--line);border-radius:999px;background:var(--panel);color:var(--text)}
+.pill{padding:7px 11px;font-size:12px;color:var(--muted)}.icon-btn{width:38px;height:38px;display:grid;place-items:center}.primary,.secondary,.ghost{padding:10px 14px;font-weight:700}.primary{background:var(--accent);border-color:var(--accent);color:#071018}.secondary{background:var(--accent2);border-color:var(--accent2);color:white}.ghost{background:transparent;color:var(--muted)}button:hover{filter:brightness(1.08)}button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid color-mix(in srgb,var(--accent) 50%,transparent);outline-offset:2px}
+.shell{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:238px minmax(0,1fr);gap:22px;padding:22px clamp(12px,3vw,38px) 50px}
+.side-nav{position:sticky;top:90px;height:max-content;padding:14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);box-shadow:var(--shadow)}
+.nav-label{font-size:11px;color:var(--muted);letter-spacing:.13em;text-transform:uppercase;margin:5px 10px 10px;font-weight:800}.nav-btn{display:flex;align-items:center;gap:10px;width:100%;padding:11px 12px;margin:4px 0;background:transparent;border-color:transparent;border-radius:12px;text-align:left;color:var(--muted);font-weight:700}.nav-btn.active{background:var(--panel3);color:var(--text);border-color:var(--line)}.nav-icon{width:22px;text-align:center}.nav-foot{border-top:1px solid var(--line);margin-top:14px;padding:14px 10px 4px;font-size:12px;color:var(--muted)}
+main{min-width:0}.view{display:none}.view.active{display:block}.hero{padding:28px;border-radius:var(--radius);background:radial-gradient(circle at 85% 15%,rgba(123,168,255,.2),transparent 34%),radial-gradient(circle at 0% 100%,rgba(110,231,200,.12),transparent 38%),var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);margin-bottom:18px}.hero h2{font-size:clamp(27px,4vw,46px);line-height:1.03;letter-spacing:-.045em;margin:8px 0 10px;max-width:760px}.hero p{max-width:760px;color:var(--muted);font-size:16px;margin:0}.hero-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.eyebrow2{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:900}.grid{display:grid;gap:15px}.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}.card h3,.card h4{margin:0 0 7px;letter-spacing:-.02em}.card p{color:var(--muted);margin:4px 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:25px 0 12px}.section-head h3{margin:0;font-size:21px}.section-head p{margin:0;color:var(--muted);font-size:13px}.stat{font-size:30px;font-weight:900;letter-spacing:-.05em}.small{font-size:12px;color:var(--muted)}.tag{display:inline-flex;align-items:center;gap:5px;border-radius:999px;padding:4px 8px;background:var(--panel3);border:1px solid var(--line);font-size:11px;font-weight:800;color:var(--muted)}
+.progress-track{height:9px;border-radius:99px;background:var(--panel3);overflow:hidden;margin:12px 0 4px}.progress-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s}
+.session-list{display:grid;gap:10px}.session-card{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:13px;padding:14px;border:1px solid var(--line);border-radius:15px;background:var(--panel);color:var(--text);text-align:left}.session-card.done{border-color:color-mix(in srgb,var(--accent) 55%,var(--line));background:color-mix(in srgb,var(--accent) 8%,var(--panel))}.check{width:26px;height:26px;border-radius:9px;border:1px solid var(--line);background:var(--panel3);color:transparent;display:grid;place-items:center;font-weight:900}.done .check{background:var(--accent);border-color:var(--accent);color:#071018}.session-title{display:inline-block;margin-right:4px;font-weight:800;color:var(--accent2)}.session-detail{font-size:13px;color:var(--muted)}.minutes{font-size:12px;color:var(--gold);font-weight:900}
+.phase-list{display:grid;gap:12px}.phase{overflow:hidden;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}.phase-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 18px;cursor:pointer}.phase-head h3{margin:0;font-size:17px}.phase-head p{margin:4px 0 0;color:var(--muted);font-size:13px}.phase-body{display:none;border-top:1px solid var(--line);padding:15px 18px}.phase.open .phase-body{display:block}.phase-toggle{color:var(--accent);font-weight:900;font-size:18px}.module-list{display:grid;gap:8px}.module{display:flex;align-items:flex-start;gap:10px;padding:11px;border-radius:12px;background:var(--panel2);border:1px solid transparent}.module:hover{border-color:var(--line)}.module input{accent-color:var(--accent);margin-top:3px;width:17px;height:17px}.module strong{display:block}.module span{display:block;color:var(--muted);font-size:12px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:end;padding:15px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--line);margin-bottom:14px}.select-wrap{display:grid;gap:5px;min-width:135px}.select-wrap label{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.09em}.select-wrap select{padding:9px 11px;border-radius:11px;background:var(--panel2);min-height:40px}
+.fretboard-wrap{overflow:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);padding:12px;box-shadow:var(--shadow)}.fretboard{min-width:720px}.fret-header,.fret-row{display:grid;grid-template-columns:50px repeat(var(--frets),minmax(48px,1fr));align-items:center}.fret-header{margin-left:50px;color:var(--muted);font-size:11px;text-align:center}.fret-row{min-height:58px;border-top:1px solid var(--line);position:relative}.fret-row:first-of-type{border-top:0}.string-label{font-size:12px;color:var(--muted);font-weight:900;text-align:center}.fret-cell{height:58px;display:flex;align-items:center;justify-content:center;border-left:1px solid var(--line);position:relative}.fret-cell.nut{border-left:4px solid var(--gold)}.fret-dot{position:absolute;bottom:3px;width:5px;height:5px;background:var(--line);border-radius:50%}.fret-note{width:39px;height:39px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:900;border:1px solid transparent;position:relative;z-index:2}.fret-note.root{background:var(--accent);color:#071018;border-color:var(--accent)}.fret-note.scale{background:color-mix(in srgb,var(--accent2) 32%,var(--panel2));color:var(--text);border-color:var(--accent2)}.fret-note.triad{background:var(--gold);color:#1a1203;border-color:var(--gold)}.fret-note.interval{background:var(--panel3);color:var(--text);border-color:var(--accent)}.fret-note.muted{opacity:.18}.fret-note.degree{border-radius:12px}.fret-note .sub{font-size:9px;opacity:.75}.fret-note.bass{box-shadow:0 0 0 3px var(--accent2),0 0 20px color-mix(in srgb,var(--accent2) 50%,transparent)}.fret-legend{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}.legend{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:12px}.legend-dot{width:12px;height:12px;border-radius:50%}.pattern-note{margin-top:12px;padding:12px 14px;border-radius:13px;background:var(--panel2);color:var(--muted);font-size:13px}
+.recall-box{display:grid;gap:12px;min-height:170px;align-content:center;text-align:center}.recall-prompt{font-size:23px;font-weight:900;letter-spacing:-.02em}.answer{padding:13px;border-radius:12px;background:var(--panel2);color:var(--accent);font-weight:800}.hidden{display:none}
+.tech-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.tech-card{padding:15px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}.tech-card .tech-top{display:flex;justify-content:space-between;gap:10px;align-items:start}.tech-card h4{margin:0}.tech-card ul{margin:10px 0 0;padding-left:18px;color:var(--muted);font-size:13px}.filter-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.chip{padding:7px 11px;background:transparent;color:var(--muted);font-size:12px}.chip.active{background:var(--accent);color:#071018;border-color:var(--accent)}
+.review-row{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:13px;border-bottom:1px solid var(--line)}.review-row:last-child{border-bottom:0}.review-label{font-weight:800}.review-meta{font-size:12px;color:var(--muted)}.review-actions{display:flex;gap:6px}.review-actions button{padding:7px 9px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);color:var(--muted);font-size:12px}.review-actions button.good{color:#071018;background:var(--accent);border-color:var(--accent)}
+textarea{width:100%;min-height:110px;resize:vertical;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--text);padding:12px}.note-box{border-left:3px solid var(--gold);padding:10px 13px;background:var(--panel2);color:var(--muted);border-radius:0 12px 12px 0;font-size:13px}
+.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:14px}
+@media(max-width:900px){.shell{grid-template-columns:1fr;padding-top:12px}.side-nav{position:sticky;top:76px;z-index:10;display:flex;gap:6px;overflow:auto;padding:7px}.nav-label,.nav-foot{display:none}.nav-btn{flex:1;justify-content:center;min-width:92px;margin:0;padding:9px 7px;font-size:11px;gap:5px;white-space:nowrap}.nav-icon{width:auto}.grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){.topbar{padding:10px 12px;gap:10px}.brand{gap:10px;min-width:0}.brand>div:last-child{min-width:0}.brand-mark{width:36px;height:36px}.brand h1{font-size:17px}.eyebrow{font-size:9px;letter-spacing:.14em;white-space:nowrap}.header-actions{gap:6px;flex-shrink:0}.pill{font-size:11px;padding-inline:9px}.hero{padding:21px}.hero h2{font-size:31px}.grid.two,.grid.three,.tech-grid{grid-template-columns:1fr}.toolbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.toolbar .wide{grid-column:1/-1}.select-wrap{min-width:0}.section-head{align-items:flex-start;flex-direction:column}.session-card{grid-template-columns:auto minmax(0,1fr);align-items:start}.session-card>span:nth-child(2){min-width:0}.minutes{grid-column:2;justify-self:end}.fretboard-wrap{margin-inline:-4px;padding:8px}.fretboard{min-width:650px}.fret-row,.fret-header{grid-template-columns:38px repeat(var(--frets),minmax(43px,1fr))}.fret-header{margin-left:38px}.fret-note{width:34px;height:34px;font-size:10px}.card{padding:15px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">⌁</div>
+      <div><div class="eyebrow">DAILY GUITAR SYSTEM</div><h1>Fretboard Path</h1></div>
+    </div>
+    <div class="header-actions"><span class="pill" id="streakPill">0 day streak</span><button class="icon-btn" id="themeBtn" title="Toggle theme">☼</button></div>
+  </header>
+  <div class="shell">
+    <aside class="side-nav">
+      <div class="nav-label">Practice room</div>
+      <button class="nav-btn active" data-view="today"><span class="nav-icon">◷</span>Today</button>
+      <button class="nav-btn" data-view="map"><span class="nav-icon">⌘</span>Curriculum</button>
+      <button class="nav-btn" data-view="fretboard"><span class="nav-icon">▦</span>Fretboard lab</button>
+      <button class="nav-btn" data-view="techniques"><span class="nav-icon">◉</span>Techniques</button>
+      <button class="nav-btn" data-view="review"><span class="nav-icon">↺</span>Review</button>
+      <button class="nav-btn" data-view="progress"><span class="nav-icon">↗</span>Progress</button>
+      <div class="nav-foot">C major is the reference key. Learn the pattern, recall it, then move it through the neck.</div>
+    </aside>
+    <main>
+      <section class="view active" id="todayView"></section>
+      <section class="view" id="mapView"></section>
+      <section class="view" id="fretboardView"></section>
+      <section class="view" id="techniquesView"></section>
+      <section class="view" id="reviewView"></section>
+      <section class="view" id="progressView"></section>
+    </main>
+  </div>
+</div>
+<input type="file" id="importFile" accept="application/json" hidden>
+<script>
+(function(){
+  "use strict";
+  var NOTE_SHARP = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
+  var NOTE_FLAT = ["C","Db","D","Eb","E","F","Gb","G","Ab","A","Bb","B"];
+  var KEY_OPTIONS = ["C","G","D","A","E","B","F#","C#","F","Bb","Eb","Ab","Db","Gb"];
+  var FLAT_KEYS = {F:true,Bb:true,Eb:true,Ab:true,Db:true,Gb:true};
+  var KEY_PC = {C:0,G:7,D:2,A:9,E:4,B:11,"F#":6,"C#":1,F:5,Bb:10,Eb:3,Ab:8,Db:1,Gb:6};
+  var STRINGS = [4,11,7,2,9,4];
+  var SCALE_INTERVALS = [0,2,4,5,7,9,11];
+  var SCALE_NAMES = ["1","2","3","4","5","6","7"];
+  var TRIAD_INTERVALS = {Major:[0,4,7],Minor:[0,3,7],Diminished:[0,3,6],Augmented:[0,4,8],"Sus 2":[0,2,7],"Sus 4":[0,5,7]};
+  var TRIAD_DEGREES = {Major:["1","3","5"],Minor:["1","b3","5"],Diminished:["1","b3","b5"],Augmented:["1","3","#5"],"Sus 2":["1","2","5"],"Sus 4":["1","4","5"]};
+  var DAILY_BLOCKS = [
+    {id:"setup",title:"Physical setup and warm-up",detail:"Relax shoulders, check fretting pressure, then play slow 1–2–3–4 and spider movements.",minutes:5,area:"Technique"},
+    {id:"rhythm",title:"Rhythm and chord movement",detail:"Choose one progression. Use a steady pulse, clean changes, accents and controlled muting.",minutes:12,area:"Rhythm"},
+    {id:"notes",title:"Fretboard recall",detail:"Name notes on one string, then find the same notes through octave shapes.",minutes:12,area:"Fretboard"},
+    {id:"patterns",title:"Pattern of the day",detail:"Study one scale, CAGED, triad or interval pattern. Hide it and recall it from memory.",minutes:12,area:"Patterns"},
+    {id:"harmony",title:"Harmony and triads",detail:"Play a diatonic progression with the nearest useful inversion on one string set.",minutes:12,area:"Harmony"},
+    {id:"ear",title:"Ear and tension",detail:"Sing or hum roots, 3rds and 5ths. Hear the difference between stability and pull.",minutes:7,area:"Ear"},
+    {id:"create",title:"Make one musical idea",detail:"Write or play a two-bar riff, fill, chord-tone melody or rhythm idea.",minutes:10,area:"Create"}
+  ];
+  var PHASES = [
+    {title:"1 · Physical foundation",subtitle:"Build relaxed, accurate movement before chasing speed.",items:[
+      ["Posture and tension","Neutral wrist, relaxed shoulder, minimum fretting pressure."],
+      ["Pick and fretting control","Pick depth, clean contact, finger independence and release."],
+      ["Open chords","C, A, G, E, D, Am, Em, Dm and controlled transitions."],
+      ["Power chords","Root and fifth shapes on strings 6–5 and 5–4."],
+      ["String muting","Fretting-hand muting, picking-hand muting and clean chord stops."]
+    ]},
+    {title:"2 · Rhythm and groove",subtitle:"Make time feel dependable before adding complexity.",items:[
+      ["Steady pulse","Quarter notes, eighth notes and changing chord lengths."],
+      ["Strumming control","Downstrokes, alternate strumming, accents and rests."],
+      ["Subdivision","Count 1-and-2-and, sixteenths and syncopated spaces."],
+      ["Metronome work","Slow accuracy, gradual tempo increases and relaxed repetition."],
+      ["Groove vocabulary","Palm muting, dynamics, rhythmic motifs and song patterns."]
+    ]},
+    {title:"3 · Fretboard note map",subtitle:"Turn the neck into a connected map from open strings to fret 24.",items:[
+      ["Open strings","E–A–D–G–B–E and the octave relationship between strings."],
+      ["Natural notes","One string at a time, frets 0–12, then random recall."],
+      ["Accidentals","Sharps and flats with correct musical spelling."],
+      ["Octave shapes","Find the same note in multiple locations."],
+      ["One-string navigation","Play a scale and melody horizontally across one string."]
+    ]},
+    {title:"4 · Intervals and scale degrees",subtitle:"See the distance and function of every note.",items:[
+      ["Root and octave","Find the same note and hear the strongest identity."],
+      ["2nds and 3rds","Hear and locate major/minor color."],
+      ["4ths and 5ths","Map the stable framework around a root."],
+      ["6ths and 7ths","Recognize color and pull toward resolution."],
+      ["Major-scale degrees","C major as 1–2–3–4–5–6–7, then transfer the formula."]
+    ]},
+    {title:"5 · CAGED and position linking",subtitle:"Use chord shapes as landmarks for the whole neck.",items:[
+      ["C shape","Chord tones and scale notes around the C-form landmark."],
+      ["A shape","Root on the fifth string and its connected scale pattern."],
+      ["G shape","The wider shape and its practical fragments."],
+      ["E shape","Root on the sixth string and barre-chord connection."],
+      ["D shape","Upper-neck triad and scale connection."],
+      ["CAGED movement","Link neighboring shapes without losing the root."]
+    ]},
+    {title:"6 · Triads and voice leading",subtitle:"Make harmony visible on three strings.",items:[
+      ["Major triads","1–3–5 in root position, first inversion and second inversion."],
+      ["Minor triads","1–b3–5 with the same inversion vocabulary."],
+      ["Diminished triads","1–b3–b5 and their dominant function."],
+      ["All string sets","1–2–3, 2–3–4, 3–4–5 and 4–5–6."],
+      ["Nearest inversion","Common tones, minimum movement and top-voice awareness."],
+      ["Horizontal connection","Move upward toward string 1 and downward toward string 6."]
+    ]},
+    {title:"7 · Lead vocabulary",subtitle:"Use scales as paths and chord tones as destinations.",items:[
+      ["Minor pentatonic","Five positions, box 1 and position links."],
+      ["Major pentatonic","Major color over major harmony."],
+      ["Blues scale","Add the blue note deliberately and hear the rub."],
+      ["Chord-tone targeting","Land on roots, 3rds and 5ths as chords change."],
+      ["Fills between chords","Short phrases that connect rhythm and lead playing."]
+    ]},
+    {title:"8 · Articulation and technique",subtitle:"Give notes shape, intention and voice.",items:[
+      ["Hammer-ons and pull-offs","Even volume, relaxed fingers and clean timing."],
+      ["Slides","Hear the movement between target notes."],
+      ["Bends","Match pitch, use support fingers and release cleanly."],
+      ["Vibrato","Small controlled movement before wider expression."],
+      ["Legato and position shifts","Connect phrases without tension or noise."]
+    ]},
+    {title:"9 · Ear training",subtitle:"Connect what you hear to what your hands know.",items:[
+      ["Pitch matching","Hear a note, sing it, then locate it."],
+      ["Interval recognition","Identify the sound and physical shape."],
+      ["Chord quality","Major, minor, diminished, suspended and dominant color."],
+      ["Function and tension","Tonic, predominant, dominant and resolution."],
+      ["Rhythm memory","Clap, speak and reproduce short rhythmic phrases."]
+    ]},
+    {title:"10 · Songwriting and musicianship",subtitle:"Turn your knowledge into music with a reason to exist.",items:[
+      ["Riff notebook","Save small ideas and label their key, rhythm and chord tones."],
+      ["Melody over harmony","Write phrases that respond to each chord."],
+      ["Arrangement","Choose space, texture, register and singers’ room."],
+      ["Borrowed harmony","Explore modal mixture after diatonic harmony is secure."],
+      ["Seventh chords and extensions","Add 7ths, 9ths, 11ths and 13ths as color."],
+      ["Story and emotion","Make harmony, melody and rhythm serve a scene or feeling."]
+    ]}
+  ];
+  var TECHNIQUES = [
+    {cat:"Foundation",title:"Minimum-pressure fretting",level:"Essential",purpose:"Clean notes with less tension and more endurance.",steps:["Place the finger close behind the fret.","Press only until the note rings cleanly.","Release pressure without lifting far.","Repeat while keeping the thumb and forearm relaxed."],drill:"Play one note on each string, then reduce pressure until the note almost buzzes. Add only enough pressure to restore clarity."},
+    {cat:"Foundation",title:"Alternate picking",level:"Essential",purpose:"Keep the pick moving economically through steady subdivisions.",steps:["Use a small pick motion.","Let the wrist lead the movement.","Keep the unused fingers relaxed.","Start with two notes per string, then cross strings."],drill:"Play 1–2–3–4 on each string with down-up picking at a slow pulse."},
+    {cat:"Rhythm",title:"Subdivision and accents",level:"Essential",purpose:"Make rhythm intentional instead of accidental.",steps:["Count the smallest subdivision aloud.","Keep the hand moving through rests.","Accent one beat at a time.","Record yourself and listen for rushing."],drill:"Mute the strings and strum eighth notes. Accent beats 2 and 4, then move the accent."},
+    {cat:"Rhythm",title:"Fretting-hand muting",level:"Essential",purpose:"Stop unwanted strings and create clean rhythmic space.",steps:["Let the fretting fingers touch adjacent strings lightly.","Keep the thumb relaxed behind the neck.","Test each string separately.","Add the muting to a chord progression."],drill:"Play a chord, release pressure without leaving the strings, and strum the silent shape."},
+    {cat:"Articulation",title:"Hammer-ons and pull-offs",level:"Developing",purpose:"Connect notes smoothly with the fretting hand.",steps:["Strike the first note clearly.","Hammer with the fingertip, not the whole hand.","Pull slightly toward the floor for a pull-off.","Keep both notes rhythmically even."],drill:"Alternate two notes on one string, then place the pair inside a pentatonic phrase."},
+    {cat:"Articulation",title:"Slides",level:"Developing",purpose:"Make a position shift audible and expressive.",steps:["Play the starting note cleanly.","Keep light pressure as the finger moves.","Aim for the target fret before looking.","Stop the slide exactly on the beat."],drill:"Slide between roots and 3rds inside one CAGED area."},
+    {cat:"Articulation",title:"Bends and pitch matching",level:"Developing",purpose:"Reach a target pitch with control rather than force.",steps:["Use the ring finger when it fits, supported by nearby fingers.","Move the wrist and forearm together.","Pre-hear the destination pitch.","Check the bend against the target note."],drill:"Play the target note first, then bend up to it and hold the pitch."},
+    {cat:"Articulation",title:"Vibrato",level:"Developing",purpose:"Give a sustained note life and emotional direction.",steps:["Hold the note with a relaxed finger.","Move from the wrist rather than squeezing.","Start narrow and slow.","Keep the centre pitch stable."],drill:"Sustain a root, then add a small even vibrato after two beats."},
+    {cat:"Mobility",title:"Spider movement",level:"Essential",purpose:"Coordinate fingers while moving across strings.",steps:["Keep each finger close to the fretboard.","Move one finger at a time.","Use a slow pulse.","Stop when the hand begins to grip."],drill:"Play 1–3–2–4 across adjacent strings, then reverse it."},
+    {cat:"Mobility",title:"One-string position shift",level:"Essential",purpose:"Break dependence on vertical boxes.",steps:["Choose one scale or melody.","Name every degree as you move.","Shift only when the next note requires it.","Keep the rhythm steady."],drill:"Play C major on one string from the open note to the octave and back."},
+    {cat:"Musical",title:"Chord-tone targeting",level:"Essential",purpose:"Make lead lines follow the harmony.",steps:["Identify the current chord.","Choose a nearby root, 3rd or 5th.","Approach it from a scale note.","Land on the target on a strong beat."],drill:"Over C–F–G–C, play only chord tones first, then add passing notes."},
+    {cat:"Musical",title:"Nearest-inversion voice leading",level:"Essential",purpose:"Move between chords with the smallest useful motion.",steps:["Keep the same string set.","Find the nearest inversion of the next triad.","Notice common tones.","Listen to the top voice as its own melody."],drill:"Play I–IV–V–I on one string set in C major, then repeat on another set."},
+    {cat:"Rhythm",title:"Palm muting and dynamic control",level:"Developing",purpose:"Control the distance between a tight attack and an open ring.",steps:["Rest the side of the picking hand lightly near the bridge.","Keep the pulse and pick depth consistent.","Move the hand a few millimetres to change the amount of muting.","Use open accents to create shape."],drill:"Play a two-bar power-chord groove: bar one muted, bar two open, then reverse it."},
+    {cat:"Mobility",title:"String crossing",level:"Developing",purpose:"Keep the pick and fretting hand synchronized as the line changes strings.",steps:["Use a small pick stroke.","Keep the unused fingers close to the strings.","Practise inside one position first.","Move the pattern to another string set."],drill:"Play three notes per string through a major-scale fragment, then reverse the direction."},
+    {cat:"Articulation",title:"Fingerstyle independence",level:"Later",purpose:"Separate bass, harmony and melody into independent layers.",steps:["Assign thumb to the bass strings.","Let index and middle fingers answer on the upper strings.","Keep the bass pulse steady.","Bring out the melody without rushing."],drill:"Alternate a steady thumb on the root and fifth while the upper fingers play a two-note melody."},
+    {cat:"Mobility",title:"Economy and sweep movement",level:"Later",purpose:"Use one continuous pick direction when adjacent notes make it efficient.",steps:["Learn the notes slowly with alternate picking first.","Notice when two or more notes fall on adjacent strings.","Let the pick continue in one direction without forcing it.","Keep every note even."],drill:"Arpeggiate a three-note triad across three strings, then connect it to the nearest inversion."},
+    {cat:"Articulation",title:"Tapping and legato extension",level:"Later",purpose:"Extend lines beyond the notes immediately under the fretting hand.",steps:["Keep the tapping finger relaxed.","Mute unused strings before increasing speed.","Make the tapped note speak at the same volume.","Return to a chord tone on the beat."],drill:"Tap the octave of a root, then resolve to the 3rd inside one CAGED area."}
+  ];
+  var state = {
+    completed:{}, curriculum:{}, review:{}, notes:"", theme:"dark", lastOpen:"", streak:0,
+    fret:{key:"C",overlay:"Major scale",quality:"Major",inversion:"Root",stringSet:"All strings",label:"Note names",maxFret:12,caged:"A"}
+  };
+  function todayKey(){return new Date().toISOString().slice(0,10)}
+  function loadState(){
+    try{var saved=JSON.parse(localStorage.getItem("fretboardPathState")||"null");if(saved){state=Object.assign(state,saved);state.completed=saved.completed||{};state.curriculum=saved.curriculum||{};state.review=saved.review||{}}}catch(e){}
+    if(state.lastOpen!==todayKey()){
+      if(state.lastOpen){
+        var old=new Date(state.lastOpen+"T12:00:00"), now=new Date(todayKey()+"T12:00:00"), diff=Math.round((now-old)/86400000);
+        state.streak=diff===1?(state.streak||0)+1:1;
+      }else state.streak=1;
+      state.lastOpen=todayKey(); saveState();
+    }
+    document.documentElement.classList.toggle("light",state.theme==="light");
+  }
+  function saveState(){localStorage.setItem("fretboardPathState",JSON.stringify(state));updateHeader()}
+  function updateHeader(){document.getElementById("streakPill").textContent=(state.streak||0)+" day streak"}
+  function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]})}
+  function pcName(pc,key){return (FLAT_KEYS[key]?NOTE_FLAT:NOTE_SHARP)[((pc%12)+12)%12]}
+  function pcFromName(name){return KEY_PC[name]===undefined?0:KEY_PC[name]}
+  function isDone(id){return state.completed[id]===todayKey()}
+  function percent(a,b){return b?Math.round(a/b*100):0}
+  function renderToday(){
+    var done=DAILY_BLOCKS.filter(function(x){return isDone("daily:"+x.id)}).length;
+    var html='<div class="hero"><div class="eyebrow2">TODAY · '+todayKey()+'</div><h2>Build a connected fretboard, one deliberate session at a time.</h2><p>Use the path to combine technique, rhythm, notes, harmony and musical imagination. Each block becomes a small piece of long-term recall.</p><div class="hero-row"><button class="primary" data-jump="fretboard">Open fretboard lab</button><button class="ghost" data-jump="review">Review due material</button></div></div>';
+    html+='<div class="grid three"><div class="card"><div class="small">Today completed</div><div class="stat">'+done+'/'+DAILY_BLOCKS.length+'</div><div class="progress-track"><div class="progress-fill" style="width:'+percent(done,DAILY_BLOCKS.length)+'%"></div></div><div class="small">'+percent(done,DAILY_BLOCKS.length)+'% of the core session</div></div><div class="card"><div class="small">Current reference</div><div class="stat">C major</div><div class="small">Degrees, triads and progressions begin here.</div></div><div class="card"><div class="small">Learning rule</div><div class="stat">Recall</div><div class="small">Hide the answer, say it, play it, then apply it.</div></div></div>';
+    html+='<div class="section-head"><div><h3>Today’s practice path</h3><p>Suggested order for a complete session. Mark a block when you have done the work.</p></div></div><div class="session-list">';
+    DAILY_BLOCKS.forEach(function(x){var d=isDone("daily:"+x.id);html+='<button class="session-card '+(d?"done":"")+'" data-daily="'+x.id+'"><span class="check">'+(d?"✓":"")+'</span><span><span class="tag">'+x.area+'</span><span class="session-title">'+esc(x.title)+'</span><span class="session-detail">'+esc(x.detail)+'</span></span><span class="minutes">'+x.minutes+' min</span></button>'});
+    html+='</div><div class="section-head"><div><h3>Today’s musical finish</h3><p>Never end only with exercises. Leave yourself one small idea.</p></div></div><div class="card"><textarea id="dailyNote" placeholder="Write a riff, chord progression, melody fragment, lyric idea or observation...">'+esc(state.notes||"")+'</textarea><div class="hero-row"><button class="primary" id="saveNote">Save idea</button><span class="small" id="noteStatus"></span></div></div>';
+    document.getElementById("todayView").innerHTML=html;
+    document.querySelectorAll("[data-daily]").forEach(function(btn){btn.addEventListener("click",function(){var id="daily:"+btn.dataset.daily;if(isDone(id))delete state.completed[id];else state.completed[id]=todayKey();saveState();renderToday()})});
+    var note=document.getElementById("dailyNote");document.getElementById("saveNote").addEventListener("click",function(){state.notes=note.value;saveState();document.getElementById("noteStatus").textContent="Saved."});
+    document.querySelectorAll("[data-jump]").forEach(function(btn){btn.addEventListener("click",function(){showView(btn.dataset.jump)})});
+  }
+  function renderMap(){
+    var done=Object.keys(state.curriculum).filter(function(k){return state.curriculum[k]}).length;
+    var total=PHASES.reduce(function(n,p){return n+p.items.length},0);
+    var html='<div class="hero"><div class="eyebrow2">CURRICULUM MAP</div><h2>Everything joins the same neck.</h2><p>Work from physical control to notes, intervals, shapes, triads, harmony, lead vocabulary, ear training and songwriting. Lessons remain available whenever you need to revisit them.</p><div class="hero-row"><span class="tag">'+done+'/'+total+' lessons checked</span><span class="tag">C major default</span><span class="tag">All four string sets</span></div></div><div class="phase-list">';
+    PHASES.forEach(function(p,i){var phaseDone=p.items.filter(function(it){return state.curriculum[i+"-"+it[0]]}).length;html+='<div class="phase '+(i<2?"open":"")+'"><div class="phase-head"><div><h3>'+esc(p.title)+'</h3><p>'+esc(p.subtitle)+' · '+phaseDone+'/'+p.items.length+'</p></div><div class="phase-toggle">'+(i<2?"−":"+")+'</div></div><div class="phase-body"><div class="module-list">';
+      p.items.forEach(function(it){var id=i+"-"+it[0];html+='<label class="module"><input type="checkbox" data-module="'+esc(id)+'" '+(state.curriculum[id]?"checked":"")+'><span><strong>'+esc(it[0])+'</strong><span>'+esc(it[1])+'</span></span></label>'});
+      html+='</div></div></div>'});
+    html+='</div><div class="section-head"><div><h3>Recommended order</h3><p>Spend several days on one layer before adding another. Use the lab to keep the layer visible.</p></div></div><div class="card"><div class="note-box">Your main organizing chain is <strong>Notes → Degrees → Scales → CAGED → Triads → Progressions → Chord-tone lines → Songs and stories.</strong> Advanced material becomes easier when this chain stays intact.</div></div>';
+    document.getElementById("mapView").innerHTML=html;
+    document.querySelectorAll(".phase-head").forEach(function(head){head.addEventListener("click",function(){head.parentElement.classList.toggle("open");head.querySelector(".phase-toggle").textContent=head.parentElement.classList.contains("open")?"−":"+"})});
+    document.querySelectorAll("[data-module]").forEach(function(input){input.addEventListener("change",function(){state.curriculum[input.dataset.module]=input.checked;saveState();renderMap()})});
+  }
+  function options(arr,current){return arr.map(function(x){return '<option '+(x===current?"selected":"")+'>'+esc(x)+'</option>'}).join("")}
+  function renderFretboard(){
+    var f=state.fret;
+    var html='<div class="hero"><div class="eyebrow2">FRETBOARD PATTERN LAB</div><h2>See the pattern. Hide the pattern. Move it.</h2><p>Use the fretboard to study notes, scale degrees, intervals, CAGED landmarks and triad movement. The visual is a map; the recall step is where the memory is built.</p></div>';
+    html+='<div class="toolbar"><div class="select-wrap"><label>Key</label><select id="fKey">'+options(KEY_OPTIONS,f.key)+'</select></div><div class="select-wrap"><label>View</label><select id="fOverlay">'+options(["Major scale","Major pentatonic","Minor pentatonic","Blues scale","Triad","Intervals"],f.overlay)+'</select></div><div class="select-wrap"><label>Labels</label><select id="fLabel">'+options(["Note names","Degrees","Intervals","Off"],f.label)+'</select></div><div class="select-wrap"><label>String set</label><select id="fSet">'+options(["All strings","1–2–3","2–3–4","3–4–5","4–5–6"],f.stringSet)+'</select></div><div class="select-wrap"><label>Frets</label><select id="fMax">'+options(["12","24"],String(f.maxFret))+'</select></div>';
+    if(f.overlay==="Triad")html+='<div class="select-wrap"><label>Quality</label><select id="fQuality">'+options(Object.keys(TRIAD_INTERVALS),f.quality)+'</select></div><div class="select-wrap"><label>Inversion</label><select id="fInversion">'+options(["Root","1st","2nd"],f.inversion)+'</select></div>';
+    html+='<div class="select-wrap"><label>CAGED focus</label><select id="fCaged">'+options(["C","A","G","E","D"],f.caged)+'</select></div><button class="primary" id="randomPattern">Random prompt</button></div>';
+    html+='<div class="fretboard-wrap"><div class="fretboard" id="fretboard"></div><div class="fret-legend"><span class="legend"><span class="legend-dot" style="background:var(--accent)"></span>Root</span><span class="legend"><span class="legend-dot" style="background:var(--accent2)"></span>Scale or interval</span><span class="legend"><span class="legend-dot" style="background:var(--gold)"></span>Triad tone</span></div><div class="pattern-note" id="patternNote"></div></div>';
+    html+='<div class="grid two" style="margin-top:15px"><div class="card"><h3>Pattern checklist</h3><p>For the selected view, complete all four passes.</p><div class="module-list"><label class="module"><input type="checkbox" data-pattern-check="see"><span><strong>1 · See it</strong><span>Study roots, degrees and the shape boundary.</span></span></label><label class="module"><input type="checkbox" data-pattern-check="say"><span><strong>2 · Say it</strong><span>Name notes or degrees aloud as you play.</span></span></label><label class="module"><input type="checkbox" data-pattern-check="play"><span><strong>3 · Play it</strong><span>Move through the pattern without stopping.</span></span></label><label class="module"><input type="checkbox" data-pattern-check="connect"><span><strong>4 · Connect it</strong><span>Find the nearest next shape, inversion or chord tone.</span></span></label></div></div><div class="card"><h3>What to listen for</h3><p id="listenPrompt"></p><div class="note-box" style="margin-top:12px">Keep the same string set while practising triad progressions. Choose the nearest useful inversion and notice the top voice as its own melody.</div></div></div>';
+    document.getElementById("fretboardView").innerHTML=html;
+    ["fKey","fOverlay","fLabel","fSet","fMax","fQuality","fInversion","fCaged"].forEach(function(id){var el=document.getElementById(id);if(el)el.addEventListener("change",function(){f.key=document.getElementById("fKey").value;f.overlay=document.getElementById("fOverlay").value;f.label=document.getElementById("fLabel").value;f.stringSet=document.getElementById("fSet").value;f.maxFret=parseInt(document.getElementById("fMax").value,10);var q=document.getElementById("fQuality");var inv=document.getElementById("fInversion");var cg=document.getElementById("fCaged");if(q)f.quality=q.value;if(inv)f.inversion=inv.value;if(cg)f.caged=cg.value;saveState();renderFretboard()})});
+    document.getElementById("randomPattern").addEventListener("click",function(){makePrompt()});
+    var checks=state.review.patternChecks||{};document.querySelectorAll("[data-pattern-check]").forEach(function(el){el.checked=!!checks[f.overlay+":"+el.dataset.patternCheck];el.addEventListener("change",function(){state.review.patternChecks=state.review.patternChecks||{};state.review.patternChecks[f.overlay+":"+el.dataset.patternCheck]=el.checked;saveState()})});
+    drawFretboard(); updatePatternCopy();
+  }
+  function getSelectedStrings(){
+    var s=state.fret.stringSet;if(s==="All strings")return [1,2,3,4,5,6];return s.split("–").map(Number)
+  }
+  function noteSetForView(){
+    var f=state.fret,root=pcFromName(f.key), intervals=[];
+    if(f.overlay==="Major scale")intervals=SCALE_INTERVALS;
+    if(f.overlay==="Major pentatonic")intervals=[0,2,4,7,9];
+    if(f.overlay==="Minor pentatonic")intervals=[0,3,5,7,10];
+    if(f.overlay==="Blues scale")intervals=[0,3,5,6,7,10];
+    if(f.overlay==="Intervals")intervals=[0,2,4,5,7,9,11];
+    if(f.overlay==="Triad")intervals=TRIAD_INTERVALS[f.quality];
+    return {root:root,intervals:intervals};
+  }
+  function degreeForInterval(i){
+    if(state.fret.overlay==="Triad")return TRIAD_DEGREES[state.fret.quality][i]||"";
+    return SCALE_NAMES[SCALE_INTERVALS.indexOf(i)]||({0:"1",2:"2",4:"3",5:"4",7:"5",9:"6",11:"7"}[i]||"");
+  }
+  function drawFretboard(){
+    var f=state.fret,root=pcFromName(f.key),data=noteSetForView(),selected=getSelectedStrings(),max=f.maxFret;
+    var out='<div class="fret-header" style="--frets:'+max+'">';
+    for(var h=0;h<=max;h++)out+='<div>'+h+'</div>';out+='</div>';
+    for(var si=0;si<6;si++){
+      var stringNo=si+1;out+='<div class="fret-row" style="--frets:'+max+'"><div class="string-label">'+stringNo+'<br><span style="font-size:10px">'+["E","B","G","D","A","E"][si]+'</span></div>';
+      for(var fret=0;fret<=max;fret++){
+        var pc=(STRINGS[si]+fret)%12,rel=(pc-root+12)%12,active=data.intervals.indexOf(rel)>-1,allowed=selected.indexOf(stringNo)>-1;
+        var marker=([3,5,7,9,15,17,19,21].indexOf(fret)>-1)?"<span class='fret-dot'></span>":(fret===12?"<span class='fret-dot' style='box-shadow:0 -10px 0 var(--line)'></span>":"");
+        var label="";
+        if(active&&allowed){
+          if(f.label==="Note names")label=pcName(pc,f.key);
+          else if(f.label==="Degrees")label=degreeForInterval(rel);
+          else if(f.label==="Intervals")label=rel===0?"R":(rel===1?"b2":rel===2?"2":rel===3?"b3":rel===4?"3":rel===5?"4":rel===6?"b5":rel===7?"5":rel===8?"b6":rel===9?"6":rel===10?"b7":"7");
+          var cls=rel===0?"root":f.overlay==="Triad"?"triad":f.overlay==="Intervals"?"interval":"scale";
+          if(f.overlay==="Triad" && stringNo===Math.max.apply(null,selected)){var inversionIndex={Root:0,"1st":1,"2nd":2}[f.inversion]||0;if(rel===data.intervals[inversionIndex])cls+=" bass";}
+          if(f.label==="Degrees")cls+=" degree";
+          label=label||"•";
+          out+='<div class="fret-cell '+(fret===0?"nut":"")+'">'+marker+'<div class="fret-note '+cls+'">'+esc(label)+'</div></div>';
+        }else out+='<div class="fret-cell '+(fret===0?"nut":"")+'">'+marker+'</div>';
+      }
+      out+='</div>';
+    }
+    document.getElementById("fretboard").innerHTML=out;
+  }
+  function updatePatternCopy(){
+    var f=state.fret,root=f.key, copy="";
+    if(f.overlay==="Major scale")copy="C major is the parent map: 1–2–3–4–5–6–7. Keep the parent notes steady while the chord tones change with the progression.";
+    if(f.overlay==="Major pentatonic")copy="Major pentatonic highlights 1–2–3–5–6. Use it for major chord color and connect its positions through nearby triads.";
+    if(f.overlay==="Minor pentatonic")copy="Minor pentatonic highlights 1–b3–4–5–b7. Use the roots as landmarks and add bends, slides and vibrato later.";
+    if(f.overlay==="Blues scale")copy="The blue note is a passing color. Hear its tension, then resolve it deliberately to a chord tone.";
+    if(f.overlay==="Triad")copy=root+" "+f.quality+" · "+f.inversion+" inversion. Keep the three-note core visible and compare it with the nearest next chord.";
+    if(f.overlay==="Intervals")copy="Intervals are distances from the selected root. Name the sound and the physical offset, then find the same interval in another position.";
+    document.getElementById("patternNote").textContent=copy;
+    document.getElementById("listenPrompt").textContent=f.overlay==="Triad"?"Play the three notes slowly, then compare the colour of the 3rd with the root and 5th.":f.overlay==="Intervals"?"Sing the root, then the target interval before playing it.": "Play the root first, then hear how each degree changes the colour of the key.";
+  }
+  function makePrompt(){
+    var f=state.fret, types=["note","degree","triad","interval"],type=types[Math.floor(Math.random()*types.length)],key=KEY_OPTIONS[Math.floor(Math.random()*KEY_OPTIONS.length)],text="",answer="";
+    if(type==="note"){var n=NOTE_SHARP[Math.floor(Math.random()*12)];text="Find every "+n+" between frets 0 and "+f.maxFret+".";answer="Use octave shapes and the open-string map. Say the note name on each string."}
+    if(type==="degree"){var d=["1","2","3","4","5","6","7"][Math.floor(Math.random()*7)];text="In "+key+" major, find every scale degree "+d+".";answer="Start from "+key+" and use the major-scale formula 1–2–3–4–5–6–7."}
+    if(type==="triad"){var q=Object.keys(TRIAD_INTERVALS)[Math.floor(Math.random()*Object.keys(TRIAD_INTERVALS).length)],inv=["Root","1st","2nd"][Math.floor(Math.random()*3)];text="Play a "+key+" "+q+" triad in "+inv+" inversion on one string set.";answer="Keep the same three adjacent strings and choose the nearest practical grip."}
+    if(type==="interval"){var i=["2","b3","3","4","5","6","b7","7"][Math.floor(Math.random()*8)];text="Find a "+i+" above a root in two different positions.";answer="Sing the interval first. Then locate it close to the root and in another octave."}
+    var box=document.createElement("div");box.className="recall-overlay";box.innerHTML='<div class="card" style="max-width:600px;width:calc(100% - 24px);margin:auto"><div class="eyebrow2">RECALL PROMPT</div><div class="recall-box"><div class="recall-prompt">'+esc(text)+'</div><div class="answer hidden" id="promptAnswer">'+esc(answer)+'</div><div class="hero-row" style="justify-content:center"><button class="primary" id="showAnswer">Show guidance</button><button class="ghost" id="closePrompt">Close</button></div></div></div>';
+    box.style.cssText="position:fixed;inset:0;z-index:50;background:rgba(4,8,14,.78);display:grid;place-items:center;padding:12px";
+    document.body.appendChild(box);document.getElementById("showAnswer").addEventListener("click",function(){document.getElementById("promptAnswer").classList.remove("hidden");this.textContent="Guidance shown"});document.getElementById("closePrompt").addEventListener("click",function(){box.remove()});
+  }
+  function renderTechniques(filter){
+    filter=filter||"All";var cats=["All","Foundation","Rhythm","Articulation","Mobility","Musical"];
+    var html='<div class="hero"><div class="eyebrow2">TECHNIQUE LIBRARY</div><h2>Train the movement, then give it a musical job.</h2><p>Each card explains the physical action, a focused drill and the sound or musical purpose behind it.</p></div><div class="filter-row">';
+    cats.forEach(function(c){html+='<button class="chip '+(c===filter?"active":"")+'" data-tech-filter="'+c+'">'+c+'</button>'});html+='</div><div class="tech-grid">';
+    TECHNIQUES.filter(function(t){return filter==="All"||t.cat===filter}).forEach(function(t){html+='<article class="tech-card"><div class="tech-top"><div><span class="tag">'+esc(t.cat)+'</span><h4>'+esc(t.title)+'</h4></div><span class="tag">'+esc(t.level)+'</span></div><p>'+esc(t.purpose)+'</p><ul>'+t.steps.map(function(s){return "<li>"+esc(s)+"</li>"}).join("")+'</ul><div class="note-box" style="margin-top:12px"><strong>Drill:</strong> '+esc(t.drill)+'</div></article>'});html+='</div>';
+    document.getElementById("techniquesView").innerHTML=html;document.querySelectorAll("[data-tech-filter]").forEach(function(b){b.addEventListener("click",function(){renderTechniques(b.dataset.techFilter)})});
+  }
+  function renderReview(){
+    var items=[];
+    DAILY_BLOCKS.forEach(function(x){items.push({id:"daily:"+x.id,label:x.title,meta:"Daily block",type:"daily"})});
+    PHASES.forEach(function(p,pi){p.items.slice(0,2).forEach(function(it){items.push({id:"module:"+pi+"-"+it[0],label:it[0],meta:p.title,type:"module"})})});
+    var html='<div class="hero"><div class="eyebrow2">REVIEW AND RECALL</div><h2>Bring weak material back before it fades.</h2><p>Use this page when you want a focused retrieval session. A review is complete when you can recall the idea without looking at the answer.</p><div class="hero-row"><button class="primary" id="reviewRandom">Random recall challenge</button><button class="ghost" id="clearReview">Clear review marks</button></div></div><div class="card"><div id="reviewList"></div></div>';
+    document.getElementById("reviewView").innerHTML=html;var list=document.getElementById("reviewList");
+    items.forEach(function(it){var level=state.review[it.id]||"Due";var row=document.createElement("div");row.className="review-row";row.innerHTML='<div><div class="review-label">'+esc(it.label)+'</div><div class="review-meta">'+esc(it.meta)+' · '+level+'</div></div><div class="review-actions"><button data-review="'+it.id+'" data-level="Again">Again</button><button data-review="'+it.id+'" data-level="Soon">Soon</button><button class="good" data-review="'+it.id+'" data-level="Solid">Solid</button></div>';list.appendChild(row)});
+    document.querySelectorAll("[data-review]").forEach(function(b){b.addEventListener("click",function(){state.review[b.dataset.review]=b.dataset.level;saveState();renderReview()})});
+    document.getElementById("reviewRandom").addEventListener("click",function(){makePrompt()});document.getElementById("clearReview").addEventListener("click",function(){state.review={};saveState();renderReview()});
+  }
+  function renderProgress(){
+    var total=PHASES.reduce(function(n,p){return n+p.items.length},0),done=Object.keys(state.curriculum).filter(function(k){return state.curriculum[k]}).length, daily=DAILY_BLOCKS.filter(function(x){return isDone("daily:"+x.id)}).length;
+    var html='<div class="hero"><div class="eyebrow2">PROGRESS</div><h2>Track consistency, then deepen the weak links.</h2><p>Your progress is stored in this browser. Use export regularly if you want a portable backup.</p></div><div class="grid three"><div class="card"><div class="small">Curriculum lessons</div><div class="stat">'+done+'/'+total+'</div><div class="progress-track"><div class="progress-fill" style="width:'+percent(done,total)+'%"></div></div><div class="small">'+percent(done,total)+'% checked</div></div><div class="card"><div class="small">Today’s blocks</div><div class="stat">'+daily+'/'+DAILY_BLOCKS.length+'</div><div class="progress-track"><div class="progress-fill" style="width:'+percent(daily,DAILY_BLOCKS.length)+'%"></div></div><div class="small">'+(state.streak||0)+' day streak</div></div><div class="card"><div class="small">Saved ideas</div><div class="stat">'+(state.notes?1:0)+'</div><div class="small">Keep adding to your riff and songwriting notebook.</div></div></div><div class="section-head"><div><h3>Data controls</h3><p>Keep your work safe when moving between devices.</p></div></div><div class="card"><div class="hero-row" style="margin-top:0"><button class="primary" id="exportBtn">Export progress</button><button class="secondary" id="importBtn">Import progress</button><button class="ghost" id="resetBtn">Reset all progress</button></div><div class="small" style="margin-top:12px">Export creates a JSON backup containing your curriculum checks, review marks, settings and notes.</div></div><div class="section-head"><div><h3>Practice philosophy</h3></div></div><div class="card"><div class="note-box">A pattern becomes useful when you can recall it in more than one place, connect it to a chord or progression, hear its function, and use it to make a musical decision.</div></div>';
+    document.getElementById("progressView").innerHTML=html;
+    document.getElementById("exportBtn").addEventListener("click",exportData);document.getElementById("importBtn").addEventListener("click",function(){document.getElementById("importFile").click()});document.getElementById("resetBtn").addEventListener("click",function(){if(confirm("Reset saved progress and notes?")){localStorage.removeItem("fretboardPathState");location.reload()}});
+  }
+  function exportData(){var blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="fretboard-path-progress-"+todayKey()+".json";a.click();setTimeout(function(){URL.revokeObjectURL(url)},500)}
+  document.getElementById("importFile").addEventListener("change",function(e){var file=e.target.files[0];if(!file)return;var reader=new FileReader();reader.onload=function(){try{var incoming=JSON.parse(reader.result);state=Object.assign(state,incoming);saveState();renderAll();alert("Progress imported.")}catch(err){alert("That file could not be read.")}};reader.readAsText(file)});
+  function showView(name){document.querySelectorAll(".view").forEach(function(v){v.classList.toggle("active",v.id===name+"View")});document.querySelectorAll(".nav-btn").forEach(function(b){b.classList.toggle("active",b.dataset.view===name)});if(name==="today")renderToday();if(name==="map")renderMap();if(name==="fretboard")renderFretboard();if(name==="techniques")renderTechniques();if(name==="review")renderReview();if(name==="progress")renderProgress();window.scrollTo({top:0,behavior:"smooth"})}
+  document.querySelectorAll(".nav-btn").forEach(function(b){b.addEventListener("click",function(){showView(b.dataset.view)})});
+  document.getElementById("themeBtn").addEventListener("click",function(){state.theme=state.theme==="light"?"dark":"light";document.documentElement.classList.toggle("light",state.theme==="light");saveState()});
+  function renderAll(){updateHeader();renderToday();renderMap();renderFretboard();renderTechniques();renderReview();renderProgress()}
+  loadState();renderAll();
+})();
+</script>
+</body>
+</html>
+
